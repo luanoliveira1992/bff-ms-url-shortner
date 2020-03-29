@@ -1,0 +1,19 @@
+regions:
+  dev: us-east-1
+  
+deployRole:
+  dev: arn:aws:iam::#{AWS::AccountId}:role
+
+sub_stage_names:
+  dev: dev
+ 
+PRIVATE_HTTP:
+  dev: false
+  
+DYNAMODB_CONTEXT_TABLE_SIZE:
+  dev:
+    READ: 3
+    WRITE: 3
+  
+
+CONTEXT_TTL_HOURS: 72

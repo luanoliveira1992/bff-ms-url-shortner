@@ -1,0 +1,39 @@
+
+# Created by https://www.gitignore.io/api/clojure,serverless,visualstudiocode
+# Edit at https://www.gitignore.io/?templates=clojure,serverless,visualstudiocode
+
+### Clojure ###
+pom.xml
+pom.xml.asc
+*.jar
+*.class
+/lib/
+/classes/
+/target/
+/checkouts/
+.lein-deps-sum
+.lein-repl-history
+.lein-plugins/
+.lein-failures
+.nrepl-port
+.nrepl-history
+.cpcache/
+.clj-kondo/.cache/
+
+### Serverless ###
+# Ignore build directory
+.serverless
+
+### VisualStudioCode ###
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+### VisualStudioCode Patch ###
+# Ignore all local history of files
+.history
+
+# End of https://www.gitignore.io/api/clojure,serverless,visualstudiocode
+node_modules

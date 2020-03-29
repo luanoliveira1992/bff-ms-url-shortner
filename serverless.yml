@@ -1,0 +1,53 @@
+service:
+  name: bff-ms-url-shortener
+
+provider:
+  name: aws
+  runtime: java8
+  memorySize: 128
+  stage: ${opt:stage, 'dev'}
+  logRetentionInDays: 7
+  region: ${self:custom.regions.${self:provider.stage}}
+  versionFunctions: false
+  timeout: 300
+  stackTags:
+    department: digital
+    stage: ${self:provider.stage}
+    region: ${self:provider.region}
+    service: ${self:service}
+  environment: ${file(ymls/environment.yml)}
+  apiKeys: ${file(ymls/apiKeys.yml)}
+  usagePlan: ${file(ymls/usagePlan.yml)}
+
+custom: ${file(ymls/custom.yml)}
+
+resources:
+  Resources: ${file(ymls/resources.yml)}
+
+functions: ${file(ymls/functions.yml)}
+
+plugins:
+  - serverless-offline
+  - serverless-iam-roles-per-function
+  - serverless-pseudo-parameters
+package:
+  exclude:
+    - coverage/**
+    - _warmup/**
+    - test/**
+    - .nyc_output/**
+    - forms/**
+    - .env
+    - .bot-plugin/**
+    - .editorconfig
+    - .gitignore
+    - .eslintignore
+    - .eslintrc.js
+    - package-lock.json
+    - README.md
+    - .vscode/**
+    - .serverless_plugins/**
+    - ymls/**
+    - docs/**
+  artifact: 'target/${self:service}.jar'
+    

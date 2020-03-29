@@ -1,0 +1,43 @@
+create-url:
+  handler: bff-ms-url-shortener.handler.CreateShotnerFn
+  memorySize: 128
+  iamRoleStatementsName: shorter-${self:provider.stage}-create-url-role
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamodb:*
+      Resource: arn:aws:es:us-east-1:#{AWS::AccountId}:table/shortener-${self:provider.stage}-url
+  events:
+    - http:
+        path: /create
+        method: post
+        cors:
+          origin: '*'
+          headers:
+            - Content-Type
+            - X-Amz-Date
+            - Authorization
+            - X-Api-Key
+            - X-Amz-Security-Token
+            - X-Amz-User-Agent
+            - Cache-Control
+          allowCredentials: false
+        private: ${self:custom.PRIVATE_HTTP.${self:provider.stage}}
+      
+redirect-url:
+  handler: bff-ms-url-shortener.handler.GetShotnerFn
+  memorySize: 128
+  iamRoleStatementsName: shorter-${self:provider.stage}-redirect-url-role
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamodb:*
+      Resource: arn:aws:es:us-east-1:#{AWS::AccountId}:table/shortener-${self:provider.stage}-url
+  events:
+    - http:
+        path: /{token}
+        method: get
+        cors:
+          origin: '*'
+          allowCredentials: false
+    

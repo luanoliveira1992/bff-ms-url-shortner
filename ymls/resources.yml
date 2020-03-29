@@ -1,0 +1,18 @@
+contextTable:
+  Type: "AWS::DynamoDB::Table"
+  Properties:
+    TableName: shortener-${self:provider.stage}-url
+    AttributeDefinitions:
+      - AttributeName: "token"
+        AttributeType: "S"
+    KeySchema:
+      - AttributeName: "token"
+        KeyType: "HASH"
+    ProvisionedThroughput:
+      ReadCapacityUnits: ${self:custom.DYNAMODB_CONTEXT_TABLE_SIZE.${self:provider.stage}.READ}
+      WriteCapacityUnits: ${self:custom.DYNAMODB_CONTEXT_TABLE_SIZE.${self:provider.stage}.WRITE}
+    TimeToLiveSpecification:
+      AttributeName: ttl
+      Enabled: true
+    SSESpecification:
+      SSEEnabled: true

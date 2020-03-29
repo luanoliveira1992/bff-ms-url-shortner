@@ -1,0 +1,5 @@
+TOTAL_AGE_IN_DAYS: 15 
+BASE_PATH_URL: https://mypath/
+STAGE: ${self:provider.stage}
+REGION: ${self:provider.region}
+SERVICE: ${self:service}
